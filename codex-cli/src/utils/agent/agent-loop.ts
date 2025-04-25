@@ -11,8 +11,10 @@ import type {
 } from "openai/resources/responses/responses.mjs";
 import type { Reasoning } from "openai/resources.mjs";
 
+// Moved createOpenAIClient import below log and APIConnectionTimeoutError import below randomUUID
 import { OPENAI_TIMEOUT_MS, getApiKey, getBaseUrl } from "../config.js";
 import { log } from "../logger/log.js";
+import { createOpenAIClient } from "../openai-client.js";
 import { parseToolCallArguments } from "../parsers.js";
 import { responsesCreateViaChatCompletions } from "../responses.js";
 import {
@@ -304,6 +306,14 @@ export class AgentLoop {
         session_id: this.sessionId,
       },
       ...(timeoutMs !== undefined ? { timeout: timeoutMs } : {}),
+    });
+    // Override default client to include Azure apiVersion if provided
+    this.oai = createOpenAIClient(this.provider, {
+      defaultHeaders: {
+        originator: ORIGIN,
+        version: CLI_VERSION,
+        session_id: this.sessionId,
+      },
     });
 
     setSessionId(this.sessionId);

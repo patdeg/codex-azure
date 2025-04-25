@@ -1,9 +1,9 @@
 import type { ResponseItem } from "openai/resources/responses/responses.mjs";
 
 import { approximateTokensUsed } from "./approximate-tokens-used.js";
-import { getBaseUrl, getApiKey } from "./config";
+import { getApiKey } from "./config";
 import { type SupportedModelId, openAiModelInfo } from "./model-info.js";
-import OpenAI from "openai";
+import { createOpenAIClient } from "./openai-client";
 
 const MODEL_LIST_TIMEOUT_MS = 2_000; // 2 seconds
 export const RECOMMENDED_MODELS: Array<string> = ["o4-mini", "o3"];
@@ -22,10 +22,8 @@ async function fetchModels(provider: string): Promise<Array<string>> {
   }
 
   try {
-    const openai = new OpenAI({
-      apiKey: getApiKey(provider),
-      baseURL: getBaseUrl(provider),
-    });
+    // Create OpenAI or Azure client based on OPENAI_API_VERSION
+    const openai = createOpenAIClient(provider);
     const list = await openai.models.list();
     const models: Array<string> = [];
     for await (const model of list as AsyncIterable<{ id?: string }>) {

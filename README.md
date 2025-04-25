@@ -9,6 +9,9 @@ This repository is a fork of the official [openai/codex](https://github.com/open
 The original project provides a client and code examples for interacting with OpenAI models.  
 However, when using **Azure OpenAI Service**, API endpoints require an explicit API version to be passed as a query parameter (e.g., `?api-version=2024-04-01-preview`). Without this, Azure will reject the requests.
 
+<!-- Begin ToC -->
+<!-- End ToC -->
+
 ## Changes from the original repo
 
 The following adjustments were made to enable Azure OpenAI Service compatibility:
