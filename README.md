@@ -1,5 +1,4 @@
-
-# codex-azure
+# codex-azure --- WORK IN PROGRESS - DO NOT USE
 
 > A modified version of [openai/codex](https://github.com/openai/codex) adapted for Azure OpenAI Service integration.
 
@@ -26,6 +25,7 @@ Azure OpenAI imposes slightly different endpoint structures compared to OpenAI's
 This fork ensures that developers using Azure OpenAI can leverage the `codex` project without additional manual code changes.
 
 Typical differences include:
+
 - Azure uses **resource-specific** endpoints (e.g., `https://YOUR-RESOURCE-NAME.openai.azure.com/openai/deployments/YOUR-DEPLOYMENT-NAME/...`)
 - Mandatory inclusion of `api-version` as a query parameter.
 - Authentication using Azure-specific keys instead of standard OpenAI keys.
@@ -33,12 +33,33 @@ Typical differences include:
 ## How to use
 
 1. Clone this repo:
+
    ```bash
    git clone https://github.com/patdeg/codex-azure.git
    cd codex-azure
    ```
 
 2. Configure your Azure OpenAI details (API key, endpoint, deployment name, and API version).
+
+For example, set `~/.codex/config.json` to something like:
+
+```
+{
+  "provider": "azure",
+  "model": "o3-mini",
+  "approvalMode": "full-auto",
+  "fullAutoErrorMode": "ask-user",
+  "notify": true,
+  "providers": {
+    "azure": {
+      "name": "Azure OpenAI",
+      "baseURL": "https://myname.openai.azure.com/openai",
+      "apiVersion": "2025-03-01-preview",
+      "envKey": "AZURE_API_KEY" // This is the environment key name, not the key itself!
+    }
+  }
+}
+```
 
 3. Run the application as described in the original [openai/codex](https://github.com/openai/codex) instructions.
 
@@ -47,5 +68,3 @@ Typical differences include:
 ## License
 
 This project follows the same license as the original [openai/codex](https://github.com/openai/codex) project.
-
-
