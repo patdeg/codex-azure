@@ -18,9 +18,8 @@ The following adjustments were made to enable Azure OpenAI Service compatibility
 
 - Dynamic API URLs were updated to include an `api-version` query parameter (`?api-version=XXXX`).
 - Minor adjustments to the endpoint construction logic to comply with Azure's specific format.
-- (Optional: you can add if you modified anything else.)
 
-The core functionality and usage remain identical to the original project, but now works seamlessly with Azure OpenAI deployments, including models like `o3-mini`.
+The core functionality and usage remain identical to the original project, but now works seamlessly with Azure OpenAI deployments, including models like `o3-mini`. The code was tested and is working with my personal Azure subcription with the mode `gpt-4o`.
 
 ## Why this fork?
 
